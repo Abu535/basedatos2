@@ -1,0 +1,56 @@
+--create table usuario1(id_usuario1 integer,nombre varchar2(120), email varchar2(90), sueldo float, constraint pk_id_usuario1 Primary Key (id_usuario1));
+
+create sequence sec_usuario1
+start with 1
+increment by 1
+nomaxvalue;
+
+
+create or replace  procedure guardar_usuario1(my_id_usuario1 out integer, my_nombre in varchar2, my_email in varchar2, my_sueldo in float)
+as  
+begin
+select sec_usuario1.Nextval into my_id_usuario1 from dual;
+insert into usuario1 values(my_id_usuario1, my_nombre, my_email, my_sueldo);
+end;
+/
+declare
+algo integer;
+/*begin
+guardar_usuario1(algo,'oscar','oscar@gmail.ocm',35000);
+end;
+/*/
+
+--select * from usuario1;
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+/*create table direccion(id_direccion integer,id_usuario1 integer, calle varchar2(190), numero integer, colonia varchar2(250), municipio varchar2(180), cp integer, 
+constraint  id_direccion_PK primary key (id_direccion),
+constraint id_usuario1_fk foreign key (id_usuario1) references usuario1 (id_usuario1));*/
+
+create sequence sec_direccion
+start with 1
+increment by 1
+nomaxvalue;
+
+create or replace procedure guardar_direccion(my_nombre in varchar2, my_email in varchar2, my_sueldo in float,my_id_direccion out integer,  my_calle in varchar2, my_numero in integer, my_colonia in varchar2, 
+my_municipio in varchar2, my_cp in integer)
+as
+declare
+algo integer;
+begin 
+select sec_direccion.Nextval my_id_direccion from dual;
+insert into direccion values (algo, my_nombre, my_email, my_sueldo, my_id_direccion ,  my_calle , my_numero , my_colonia , 
+my_municipio , my_cp);
+end;
+/
+
+declare
+algo2 integer;
+begin
+guardar_direccion(algo,'oscar','oscar@gmail.ocm',35000,algo2,'coahuola',444,'provi','Gam',05050);
+end;
+/
+SELECT * FROM direccion;
